@@ -124,14 +124,14 @@ void timer()
       currentColor = currentColor - 1;
       for (int p=0; p<10; p=p+1) 
       {
-        delay(total_time);
+        delay(delta_time);
         CircuitPlayground.setPixelColor(p, colors[currentColor]);  // 50 to 60 mins
       }
     }
   
     for (int p=0; p<10; p=p+1) 
     {
-      delay(total_time);
+      delay(delta_time);
       CircuitPlayground.setPixelColor(p, 0, 0, 0);  // 0 to 10 mins
     }
   
