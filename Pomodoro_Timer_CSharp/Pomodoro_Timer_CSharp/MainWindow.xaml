@@ -5,8 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pomodoro_Timer_CSharp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="MainWindow" Height="412.578" Width="295.738">
+    <Grid Margin="0,0,0,30">
+        <StackPanel Orientation="Vertical" Margin="5,5,5,-42"/>
+        <Label Content="Ports:" HorizontalAlignment="Left" Height="29" Margin="27,-45,0,0" VerticalAlignment="Top" Width="45"/>
+        <ComboBox x:Name="port" MinWidth="200" Margin="7,8,65,321"/>
+        <Button Content="Connect" Margin="232,7,7,322" Click="connect_Click" />
+        <Label Content="RGB Color" Margin="109,127,48,200" />
+        <Slider HorizontalAlignment="Left" VerticalAlignment="Top" Width="191" x:Name ="red" Minimum="0" Maximum="255" TickFrequency="1" ValueChanged="Slider_ValueChanged" Margin="49,152,0,0" Height="17"/>
+        <Slider HorizontalAlignment="Left" VerticalAlignment="Top" Width="191" x:Name ="green" Minimum="0" Maximum="255" TickFrequency="1" ValueChanged="Slider_ValueChanged" Margin="49,169,0,0" Height="17"/>
+        <Slider HorizontalAlignment="Left" VerticalAlignment="Top" Width="191" x:Name ="blue" Minimum="0" Maximum="255" TickFrequency="1" ValueChanged="Slider_ValueChanged" Margin="49,186,0,0" Height="17"/>
+        <Rectangle VerticalAlignment="Top" Height="95" x:Name="colorBox" HorizontalAlignment="Left" Width="122" Fill="Black" StrokeThickness="1" Stroke="Aqua" Margin="83,212,0,0" RenderTransformOrigin="0.5,0.5">
+            <Rectangle.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Rectangle.RenderTransform>
+        </Rectangle>
+        <Button Content="Press" Margin="86,319,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="118" Click="ColorChange" Height="31"/>
+
     </Grid>
 </Window>

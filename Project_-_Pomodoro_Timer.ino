@@ -87,8 +87,9 @@ int noteDurations[] = {     // note durations
 float total_time = 60000; // approx 1 min per pixel light
 float delta_time = total_time / 500; // use for debugging purposes
 bool slideSwitch = CircuitPlayground.slideSwitch();
-uint8_t currentColor;
-const uint32_t colors[] = { DIAMOND, BLUE, GREEN, GOLD, PINK, RED, PURPLE };
+uint8_t r, g, b;
+uint8_t currentColor = r + g + b;
+uint32_t colors[] = { DIAMOND, BLUE, GREEN, GOLD, PINK, RED, PURPLE };
 bool is4Pressed = false;
 bool is19Pressed = false;
 
@@ -124,14 +125,14 @@ void timer()
       currentColor = currentColor - 1;
       for (int p=0; p<10; p=p+1) 
       {
-        delay(delta_time);
+        delay(total_time);
         CircuitPlayground.setPixelColor(p, colors[currentColor]);  // 50 to 60 mins
       }
     }
   
     for (int p=0; p<10; p=p+1) 
     {
-      delay(delta_time);
+      delay(total_time);
       CircuitPlayground.setPixelColor(p, 0, 0, 0);  // 0 to 10 mins
     }
   
@@ -149,7 +150,7 @@ void timer()
   }
   else
   {
-    
+    // do nothing
   }
   
 }
@@ -217,12 +218,63 @@ void leftButton()
   }
 }
 
-void loop()
+void slideSwitcher()
 {
-  for (int p=0; p<10; p=p+1) 
+  if(slideSwitch == true)
   {
-    CircuitPlayground.setPixelColor(p, colors[currentColor]);
+    if(digitalRead(21) == HIGH)
+    {
+      slideSwitch = true;
+      Serial.println("slider");
+    }
+
+    else
+    {
+      if(digitalRead(21) == LOW)
+      {
+        slideSwitch = false;
+      }
+    }
   }
+}
+
+void loop()
+{    
+  if(Serial.available())
+  {
+    uint8_t id = Serial.read();
+    if(id == 0xAA)
+    {
+      byte buf[5];
+      uint32_t colorValue = 0;
+      buf[0] = Serial.read();
+      buf[1] = Serial.read();
+      buf[2] = Serial.read();
+      buf[3] = Serial.read();
+      buf[4] = Serial.read();
+
+      colorValue = *((uint32_t)*&buf[1]);
+      colors[buf[0]] = colorValue;
+      
+//      uint8_t pin = Serial.read();
+//      r = Serial.read();    
+//      g = Serial.read();
+//      b = Serial.read();  
+//      for (int pin=0; pin<10; pin=pin+1) 
+//      {
+//        CircuitPlayground.setPixelColor(pin, r, g, b);
+//      }
+    }
+  }
+
+  else
+  {
+    for (int p=0; p<10; p=p+1) 
+    {
+      CircuitPlayground.setPixelColor(p, colors[currentColor]);
+    }
+  }
+  
   leftButton();
   rightButton();
   timer();
