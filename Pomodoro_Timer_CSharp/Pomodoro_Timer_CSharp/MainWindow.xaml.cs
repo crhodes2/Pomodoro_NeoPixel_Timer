@@ -41,7 +41,7 @@ namespace Pomodoro_Timer_CSharp
                 //cp.DataReceived += Sim_DataReceived;
                 cp.Open(index);
 
-                //connectionStatus.Content = "Connected";
+                label.Content = "Connected";
             }
         }
 
