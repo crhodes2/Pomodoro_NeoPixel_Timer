@@ -48,6 +48,8 @@
 #define RED 0xFF0101      // 50 to 60 mins
 #define PURPLE 0x4B0082   // 60 to 70 mins
 
+//from adafruit_circuitplayground.express import cpx
+
 int melody[] = {
 NOTE_E7, NOTE_E7, 0, NOTE_E7,
   0, NOTE_C7, NOTE_E7, 0,
@@ -120,6 +122,7 @@ void timer()
   //int myNum = NUM - 1;
   if(CircuitPlayground.slideSwitch() == true)
   {
+    //cpx.play_file("Wild_Eep.wav")
     while(currentColor > 1)
     {
       currentColor = currentColor - 1;
